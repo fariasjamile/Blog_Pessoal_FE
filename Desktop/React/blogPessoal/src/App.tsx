@@ -2,9 +2,8 @@ import React from 'react';
 import { Grid } from '@material-ui/core';
 import './App.css';
 import Home from './paginas/home/Home';
-import { BrowserRouter, Routes } from 'react-router-dom'
-import NavBar from './componets/estaticos/navbar/NavBar';
-import Footer from './componets/estaticos/footer/Footer';
+import NavBar from './components/estaticos/navbar/NavBar';
+import Footer from './components/estaticos/footer/Footer';
 
 function App() {
 
