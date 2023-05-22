@@ -1,55 +1,31 @@
-import { Grid } from '@material-ui/core'
+import React from 'react';
+import { Typography, Grid, Button } from '@material-ui/core';
+import { Box } from '@mui/material';
 import './Home.css';
-import Carrossel from '../../components/carrossel/Carrossel';
-;
 
-
-function Home() {
+ function Home() {
   return (
-    <>
-
-    <Grid container style={{ marginTop: "8px" }}>
-      <Grid item xs={12}>
-        <Carrossel />
-      </Grid>
-    </Grid>
-
-    </>
-  );
-}
+         <>
+             <Grid container direction="row" justifyContent="center" alignItems="center" style={{ backgroundColor: "#48304D" }}>
+                 <Grid alignItems="center" item xs={6}>
+                     <Box paddingX={20} >
+                         <Typography variant="h3" gutterBottom color="textPrimary" component="h3" align="center" style={{ color: "white", fontWeight: "bold" }}>Seja bem vindo(a)!</Typography>
+                         <Typography variant="h5" gutterBottom color="textPrimary" component="h5" align="center" style={{ color: "white", fontWeight: "bold" }}>Expresse aqui os seus pensamentos e opiniões!</Typography>
+                     </Box>
+                     <Box display="flex" justifyContent="center">
+                         <Box marginRight={1}>
+                         </Box>
+                         <Button variant="outlined" style={{ borderColor: "white", backgroundColor: "#48304D", color: "white" }}>Ver Postagens</Button>
+                     </Box>
+                 </Grid>
+                 <Grid item xs={6} >
+                 <img src="https://i.imgur.com/H88yIo2.png" alt="" width="500px" height="500px" />
+                 </Grid>
+                 <Grid xs={12} style={{ backgroundColor: "white" }}>
+                 </Grid>
+             </Grid>
+         </>
+     );
+ }
 
 export default Home;
-  
-  
-  
-  // import React from 'react';
-// import { Typography, Grid, Button } from '@material-ui/core';
-// import { Box } from '@mui/material';
-// import './Home.css';
-
-// function Home() {
-//     return (
-//         <>
-//             <Grid container direction="row" justifyContent="center" alignItems="center" style={{ backgroundColor: "#3F51B5" }}>
-//                 <Grid alignItems="center" item xs={6}>
-//                     <Box paddingX={20} >
-//                         <Typography variant="h3" gutterBottom color="textPrimary" component="h3" align="center" style={{ color: "white", fontWeight: "bold" }}>Seja bem vindo(a)!</Typography>
-//                         <Typography variant="h5" gutterBottom color="textPrimary" component="h5" align="center" style={{ color: "white", fontWeight: "bold" }}>expresse aqui os seus pensamentos e opiniões!</Typography>
-//                     </Box>
-//                     <Box display="flex" justifyContent="center">
-//                         <Box marginRight={1}>
-//                         </Box>
-//                         <Button variant="outlined" style={{ borderColor: "white", backgroundColor: "#3F51B5", color: "white" }}>Ver Postagens</Button>
-//                     </Box>
-//                 </Grid>
-//                 <Grid item xs={6} >
-//                     <img src="https://i.pinimg.com/736x/4a/79/eb/4a79eb5fc24ca2b119aa648b623e34a9.jpg" alt="" width="500px" height="500px" />
-//                 </Grid>
-//                 <Grid xs={12} style={{ backgroundColor: "white" }}>
-//                 </Grid>
-//             </Grid>
-//         </>
-//     );
-// }
-
-// export default Home;

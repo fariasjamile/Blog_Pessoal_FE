@@ -33,19 +33,19 @@ function Carrossel() {
             >
 
                 <SwiperSlide>
-                    <img src="https://i.imgur.com/3QPflR0.jpg" alt="Imagem" />
+                    <img src="https://wallpapercave.com/wp/wp8151225.jpg" alt="Imagem" />
                 </SwiperSlide>
 
                 <SwiperSlide>
-                    <img src="https://i.imgur.com/xvICw9P.jpg" alt="Imagem" />
+                    <img src="https://w.forfun.com/fetch/00/008ff52a2516af485380ffd409e6c834.jpeg" alt="Imagem" />
                 </SwiperSlide>
 
                 <SwiperSlide>
-                    <img src="https://i.imgur.com/m46wnRX.jpg" alt="Imagem" />
+                    <img src="https://images7.alphacoders.com/333/thumb-1920-333580.jpg" alt="Imagem" />
                 </SwiperSlide>
 
                 <SwiperSlide>
-                    <img src="https://i.imgur.com/4S4Aqg6.jpg" alt="Imagem" />
+                    <img src="https://e0.pxfuel.com/wallpapers/565/654/desktop-wallpaper-anime-phone.jpg" alt="Imagem" />
                 </SwiperSlide>
 
             </Swiper>

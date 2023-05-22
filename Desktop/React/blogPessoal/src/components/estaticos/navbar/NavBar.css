@@ -1,14 +1,20 @@
-.cursor{
-    cursor: pointer;
-    color: white;
+.caixa{
+    background-color: #48304D;
 }
 
-.text-decorator-none{
-    text-decoration: none;
-    color: white;
+.titulo{
+   color: white !important;
+   font-weight: bold !important;
 }
-*{
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
+
+.botao{
+    border-color: white !important;
+    background-color: #48304D;
+    color: white !important;
 }
+
+.postagens{
+    background-color: white;
+}
+}
+
