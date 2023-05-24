@@ -1,20 +1,20 @@
-.caixa{
-    background-color: #48304D;
+.text-decorator-none{
+    display: flex;
+    align-items:center;
+    font-style: italic;
+    font-weight: bold;
 }
 
-.titulo{
-   color: white !important;
-   font-weight: bold !important;
+.text-decorator-none-especial{
+    color: inherit;
+    text-decoration: none;
+    align-items:center;
+    font-style: italic;
+    font-weight: bold;
+    text-align: ;
+      
 }
 
-.botao{
-    border-color: white !important;
-    background-color: #48304D;
-    color: white !important;
+.cursor{
+  cursor: pointer;
 }
-
-.postagens{
-    background-color: white;
-}
-}
-
