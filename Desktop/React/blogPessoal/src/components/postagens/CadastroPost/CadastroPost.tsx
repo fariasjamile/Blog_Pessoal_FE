@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useEffect, useState } from 'react'
 import { Container, Typography, TextField, Button, Select, InputLabel, MenuItem, FormControl, FormHelperText } from "@material-ui/core"
-import './CadastroPostagens.css';
+import './CadastroPost.css';
 import {useNavigate, useParams } from 'react-router-dom'
 import Tema from '../../../models/Tema';
 import useLocalStorage from 'react-use-localstorage';
@@ -77,19 +77,21 @@ function CadastroPost() {
         e.preventDefault();
     
         if (id !== undefined) {
-            await put(`/postagens`, postagem, {
+             put(`/postagens`, postagem, setPostagem, {
                 headers: {
                     'Authorization': token
                 }
-            });
+            })
             setPostagem(postagem);
             alert('Postagem atualizada com sucesso');
+
         } else {
-            await post(`/postagens`, postagem, {
+            post(`/postagens`, postagem, setPostagem, {
                 headers: {
                     'Authorization': token
                 }
             });
+        
             setPostagem(postagem);
             alert('Postagem cadastrada com sucesso');
         }

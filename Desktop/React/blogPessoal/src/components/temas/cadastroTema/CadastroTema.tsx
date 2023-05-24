@@ -1,13 +1,13 @@
 import React, {useState, useEffect, ChangeEvent} from 'react'
 import { Container, Typography, TextField, Button } from "@material-ui/core"
 import {useNavigate, useParams } from 'react-router-dom'
+import './CadastroTema.css';
+import useLocalStorage from 'react-use-localstorage';
 import Tema from '../../../models/Tema';
 import { buscaId, post, put } from '../../../services/Service';
-import useLocalStorage from 'react-use-localstorage';
 
 
 function CadastroTema() {
-
     let navigate = useNavigate();
     const { id } = useParams<{id: string}>();
     const [token, setToken] = useLocalStorage('token');
@@ -31,7 +31,7 @@ function CadastroTema() {
     }, [id])
 
     async function findById(id: string) {
-        buscaId(`/tema/${id}`, setTema, {
+        buscaId(`/temas/${id}`, setTema, {
             headers: {
               'Authorization': token
             }
@@ -44,23 +44,21 @@ function CadastroTema() {
                 ...tema,
                 [e.target.name]: e.target.value,
             })
-    
         }
         
         async function onSubmit(e: ChangeEvent<HTMLFormElement>) {
             e.preventDefault()
-            console.log("tema " + JSON.stringify(tema))
     
             if (id !== undefined) {
-                console.log(tema)
-                put(`/tema`, tema, setTema, {
+                put(`/temas`, tema, setTema, {
                     headers: {
                         'Authorization': token
                     }
                 })
                 alert('Tema atualizado com sucesso');
+                
             } else {
-                post(`/tema`, tema, setTema, {
+                post(`/temas`, tema, setTema, {
                     headers: {
                         'Authorization': token
                     }
@@ -79,13 +77,12 @@ function CadastroTema() {
         <Container maxWidth="sm" className="topo">
             <form onSubmit={onSubmit}>
                 <Typography variant="h3" color="textSecondary" component="h1" align="center" >Formulário de cadastro tema</Typography>
-                <TextField value={tema.descricao} onChange={(e: ChangeEvent<HTMLInputElement>) => updatedTema(e)} id="descricao" label="descricao" variant="outlined" name="descricao" margin="normal" fullWidth />
+                <TextField value={tema.descricao} onChange={(e: ChangeEvent<HTMLInputElement>) => updatedTema(e)} id="descricao" label="Titulo" variant="outlined" name="descricao" margin="normal" fullWidth />
                 <Button type="submit" variant="contained" color="primary">
                     Finalizar
                 </Button>
             </form>
         </Container>
-
     )
 }
 
