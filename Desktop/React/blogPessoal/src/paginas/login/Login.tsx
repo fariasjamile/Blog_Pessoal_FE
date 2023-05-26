@@ -1,85 +1,128 @@
-import React, { useState, useEffect, ChangeEvent } from 'react';
-import { Grid, Typography, TextField, Button } from '@material-ui/core';
-import {Box} from '@mui/material';
+import { Button, Grid, TextField, Typography } from '@material-ui/core';
+import { Box } from '@mui/material';
+import { ChangeEvent, useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import useLocalStorage from 'react-use-localstorage';
-import { api, login } from '../../services/Service';
+import { toast } from 'react-toastify';
 import UserLogin from '../../models/UserLogin';
+import { login } from '../../services/Service';
+import { addId, addToken } from '../../store/token/Actions';
 import './Login.css';
 
-
+// use pode ser lido HOok
 function Login() {
     let navigate = useNavigate();
-    const [token, setToken] = useLocalStorage('token');
-    
-    const [userLogin, setUserLogin] = useState<UserLogin>(
-        {
-            id: 0 ,
-            usuario: '',
-            senha: '',
-            token: ''
+    // const[token, setToken] = useLocalStorage('token');
+
+    const dispatch = useDispatch();
+
+    // const [token, setToken] = useState("");
+
+    const [userLogin, setUserLogin] = useState<UserLogin>({
+
+        id: 0,
+        nome: "",
+        usuario: '',
+        foto: "",
+        senha: '',
+        token: ''
+    })
+
+    const [respUserLogin, setRespUserLogin] = useState<UserLogin>({
+
+        id: 0,
+        nome: "",
+        usuario: '',
+        foto: "",
+        senha: '',
+        token: ''
+    })
+
+    function updatedModel(e: ChangeEvent<HTMLInputElement>) {
+        setUserLogin({
+            ...userLogin,
+            [e.target.name]: e.target.value
+        })
+        console.log(Object.values(userLogin))
+    }
+
+    // useEffect(() => {
+    //     if (token !== '') {
+    //         console.log("Token:", token)
+
+    //         dispatch(addToken(token))
+    //         navigate('/home')
+    //     }
+    // }, [token])
+
+    useEffect(() => {
+        if (respUserLogin.token !== "") {
+
+            // Verifica os dados pelo console (Opcional)
+            console.log("Token: " + respUserLogin.token)
+            console.log("ID: " + respUserLogin.id)
+
+            // Guarda as informações dentro do Redux (Store)
+            dispatch(addToken(respUserLogin.token))
+            dispatch(addId(respUserLogin.id.toString()))    // Faz uma conversão de Number para String
+            navigate('/home')
         }
-        )
+    }, [respUserLogin.token])
 
-        function updatedModel(e: ChangeEvent<HTMLInputElement>) {
-
-            setUserLogin({
-                ...userLogin,
-                [e.target.name]: e.target.value
-            })
+    async function onSubmit(e: ChangeEvent<HTMLFormElement>) {
+        e.preventDefault();
+        try {
+         
+            await login('/usuarios/logar', userLogin, setRespUserLogin)
+            toast.success('Login efetuado com sucesso!', {
+                position: 'top-right',
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: false,
+                draggable: false,
+                theme: 'colored',
+                progress: undefined,
+            });
+        } catch (error) {
+   
+            toast.error('Erro ao efetuar login! Verifique os dados do Usuário!', {
+                position: 'top-right',
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: false,
+                draggable: false,
+                theme: 'colored',
+                progress: undefined,
+            });
         }
-
-            useEffect(()=>{
-                if(token != ''){
-                    navigate('/home')
-                }
-            }, [token])
-
-            async function onSubmit(e: ChangeEvent<HTMLFormElement>){
-                e.preventDefault();
-                try{
-                    await login('/usuarios/logar', userLogin, setToken)
-        
-                    alert("Usuário logado com sucesso!");
-                }catch(error){
-                    alert("Dados do usuário inconsistentes. Erro ao logar!");
-                }
-            }
+    }
 
     return (
         <Grid container direction='row' justifyContent='center' alignItems='center'>
-            <Grid alignItems='center' xs={6}> {/* o xs 6 seixa aimagem no meio pq lembra que a tela cheia tem 12 colunas? entao, 12/6= meio */}
-                <Box paddingX={20}> {/*muda o tamanho dos campos de formulario */}
-
-                <form onSubmit={onSubmit}> {/* faz as configuaraçoes do campo de forms */}
-                        <Typography variant='h3' component='h3' align='center' className='textos1'>Entrar</Typography>
-                        <TextField value={userLogin.usuario} onChange={(e:ChangeEvent<HTMLInputElement>) => updatedModel(e)} id='usuario' label='usuário' variant='outlined' name='usuario' margin='normal' fullWidth />
-                        <TextField value={userLogin.senha} onChange={(e:ChangeEvent<HTMLInputElement>) => updatedModel(e)} id='senha' label='senha' variant='outlined' name='senha' margin='normal' type='password'fullWidth />
+            <Grid alignItems='center' xs={6}>
+                <Box paddingX={20}>
+                    <form onSubmit={onSubmit}>
+                        <Typography variant='h3' gutterBottom color='textPrimary' component='h3' align='center' className='textos1'>Entrar</Typography>
+                        <TextField value={userLogin.usuario} onChange={(e: ChangeEvent<HTMLInputElement>) => updatedModel(e)} id='usuario' label='usuário' variant='outlined' name='usuario' margin='normal' fullWidth />
+                        <TextField value={userLogin.senha} onChange={(e: ChangeEvent<HTMLInputElement>) => updatedModel(e)} id='senha' label='senha' variant='outlined' name='senha' margin='normal' type='password' fullWidth />
                         <Box marginTop={2} textAlign='center'>
-                            {/* margintop 2 significA o espaçamneto entre o forms e as mensagens de login e botão */}
-
-                            <Link to='/home' className='text-decorator-none'>
-                                <Button type='submit' variant='contained' color='primary'>
-                                    Login
-                                </Button>
-                            </Link>
-
+                            <Button type='submit' className='textos1'>
+                                Entrar
+                            </Button>
                         </Box>
                     </form>
-                    {/* centraliza os forms de user e senha */}
                     <Box display='flex' justifyContent='center' marginTop={2}>
-                        {/* deixa os botoes de logar e as mensages de baixo */}
                         <Box marginRight={1}>
-                            {/* forms */}
                             <Typography variant='subtitle1' gutterBottom align='center'>Não tem uma conta?</Typography>
                         </Box>
-                            <Link to='/cadastre-se'>
-                            <Typography variant='subtitle1' gutterBottom align='center' className='textos2'>Cadastre-se</Typography>
-                            </Link>
-                            </Box>
+                        <Link to='/cadastrousuario'>
+                            <Typography variant='subtitle1' gutterBottom align='center' className='textos1'>Cadastre-se</Typography>
+                        </Link>
+                    </Box>
                 </Box>
             </Grid>
-            {/* o xs 6 seixa aimagem no meio pq lembra que a tela cheia tem 12 colunas? entao, 12/6= meio */}
             <Grid xs={6} className='imagem'>
 
             </Grid>

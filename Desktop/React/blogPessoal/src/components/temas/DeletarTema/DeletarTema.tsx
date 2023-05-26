@@ -1,21 +1,38 @@
-import React, { useEffect, useState } from 'react'
-import {Typography, Button, Card, CardActions, CardContent } from "@material-ui/core"
-import {Box} from '@mui/material';
-import './DeletarTema.css';
-import {useNavigate, useParams } from 'react-router-dom'
-import useLocalStorage from 'react-use-localstorage';
-import Postagem from '../../../models/Postagem';
+import { Button, Card, CardActions, CardContent, Typography } from '@material-ui/core';
+import { Box } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
+import Tema from '../../../models/Tema';
 import { buscaId, deleteId } from '../../../services/Service';
+import { UserState } from '../../../store/token/Reducer';
+import './DeletarTema.css';
+import { toast } from 'react-toastify';
 
-function DeletarPostagem() {
+
+function DeletarTema() {
     let navigate = useNavigate();
     const { id } = useParams<{id: string}>();
-    const [token, setToken] = useLocalStorage('token');
-    const [post, setPosts] = useState<Postagem>()
+    // const [token, setToken] = useLocalStorage('token');
+
+    const token = useSelector<UserState, UserState["tokens"]>(
+      (state) => state.tokens
+    )
+    
+    const [tema, setTema] = useState<Tema>()
 
     useEffect(() => {
         if (token == "") {
-            alert("Você precisa estar logado")
+          toast.error('Usuário não autenticado! Faça o Login novamente', {
+            position: 'top-right',
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: false,
+            theme: 'colored',
+            progress: undefined,
+          });
             navigate("/login")
     
         }
@@ -28,7 +45,7 @@ function DeletarPostagem() {
     }, [id])
 
     async function findById(id: string) {
-        buscaId(`/postagens/${id}`, setPosts, {
+        buscaId(`/temas/${id}`, setTema, {
             headers: {
               'Authorization': token
             }
@@ -36,44 +53,53 @@ function DeletarPostagem() {
         }
 
         function sim() {
-          navigate('/posts')
-            deleteId(`/postagens/${id}`, {
+          navigate('/temas')
+            deleteId(`/temas/${id}`, {
               headers: {
                 'Authorization': token
               }
             });
-            alert('Postagem deletada com sucesso');
+            toast.success('Tema deletado com sucesso!', {
+              position: 'top-right',
+              autoClose: 2000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: false,
+              draggable: false,
+              theme: 'colored',
+              progress: undefined,
+          });
           }
         
           function nao() {
-            navigate('/posts')
+            navigate('/temas')
           }
+          
   return (
     <>
       <Box m={2}>
-        <Card variant="outlined" >
+        <Card variant="outlined">
           <CardContent>
             <Box justifyContent="center">
               <Typography color="textSecondary" gutterBottom>
-                Deseja deletar a Postagem:
+                Deseja deletar o Tema:
               </Typography>
-              <Typography color="textSecondary" >
-              {post?.titulo}
+              <Typography color="textSecondary">
+                {tema?.descricao}
               </Typography>
             </Box>
-
           </CardContent>
           <CardActions>
             <Box display="flex" justifyContent="start" ml={1.0} mb={2} >
               <Box mx={2}>
-              <Button onClick={sim} variant="contained" className="marginLeft" size='large' color="primary">
-                Sim
-              </Button>
+                <Button onClick={sim} variant="contained" className="marginLeft" size='large' color="primary">
+                  Sim
+                </Button>
               </Box>
-              <Box>
-              <Button  onClick={nao} variant="contained" size='large' color="secondary">
-                Não
-              </Button>
+              <Box mx={2}>
+                <Button  onClick={nao} variant="contained" size='large' color="secondary">
+                  Não
+                </Button>
               </Box>
             </Box>
           </CardActions>
@@ -82,4 +108,4 @@ function DeletarPostagem() {
     </>
   );
 }
-export default DeletarPostagem;
+export default DeletarTema;

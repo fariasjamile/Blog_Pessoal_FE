@@ -1,6 +1,6 @@
 .textos1{
 font-weight: bold !important;
-color:antiquewhite;
+color:#8776a2;
     /* botao de entrar */
  }
 
@@ -11,7 +11,7 @@ color: purple;
  }
  
  .imagem{
-     background-image: url(https://tmjuntos.com.br/wp-content/uploads/2022/10/Shutterstock_2143326733.jpg);
+     background-image: url(https://i.pinimg.com/564x/9b/8d/b4/9b8db422da463c669ebb1d96d65045bf.jpg);
      background-repeat: no-repeat;
      width: 100vh;
      min-height: 100vh;
