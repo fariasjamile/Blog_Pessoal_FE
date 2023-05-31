@@ -5,8 +5,9 @@
   margin-left: 22%;
   margin-right: auto;
 }
+
 .caixa{
-  background-color:purple !important;
+  background-color:#8D91C7 !important;
 }
 .titulo{
   color: white !important;
@@ -14,7 +15,7 @@
 }
 .botao{
   border-color: white !important;
-  background-color: plum !important;
+  background-color: #8D91C7 !important;
   color: white !important;
 }
 .postagens{

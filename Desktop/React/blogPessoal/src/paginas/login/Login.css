@@ -1,17 +1,25 @@
 .textos1{
 font-weight: bold !important;
-color:#8776a2;
-    /* botao de entrar */
+color:#6E75A8;
+    /* botao de cadastrar */
  }
 
- .textos2{
-font-weight: bold !important;
-color: purple;
-    /* botao de cadastrese aqui */
+ .textos3{
+    font-weight: bold !important;
+    border-color: gray !important;
+    background-color: white !important;
+    color: #8D91C7  !important;
+
  }
- 
+ /* botao de entrar grande */
+
+ .botao{
+    border-color: white !important;
+    background-color: #8D91C7 !important;
+    color: white !important;
+ }
  .imagem{
-     background-image: url(https://i.pinimg.com/564x/9b/8d/b4/9b8db422da463c669ebb1d96d65045bf.jpg);
+     background-image: url(https://i.imgur.com/RgOoYI1.jpg);
      background-repeat: no-repeat;
      width: 100vh;
      min-height: 100vh;

@@ -55,17 +55,32 @@ function CadastroUsuario() {
     async function onSubmit(e: ChangeEvent<HTMLFormElement>) {
         e.preventDefault() // Não atualiza a pagina que é comportamento padrão do botão 
         if (confirmarSenha == user.senha) {
-            cadastroUsuario(`/usuarios/cadastrar`, user, setUserResult)
-            toast.success('Usuário cadastrado com sucesso', {
-                position: 'top-right',
-                autoClose: 2000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: false,
-                draggable: false,
-                theme: 'colored',
-                progress: undefined,
-            });
+
+            try {
+                await cadastroUsuario(`/usuarios/cadastrar`, user, setUserResult)
+                toast.success('Usuário cadastrado com sucesso', {
+                    position: 'top-right',
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: false,
+                    draggable: false,
+                    theme: 'colored',
+                    progress: undefined,
+                });
+            } catch (error) {
+                console.log(error)
+                toast.error("Erro ao cadastrar o Usuário! O Usuário já existe!", {
+                    position: 'top-right',
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: false,
+                    draggable: false,
+                    theme: 'colored',
+                    progress: undefined,
+                });
+            }
         } else {
             toast.error("Erro ao cadastrar o Usuário! Verifique os dados e tente novamente.", {
                 position: 'top-right',
@@ -79,6 +94,16 @@ function CadastroUsuario() {
             });
         }
     }
+
+            const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+            const validarEmail = emailRegex.test(user.usuario);
+
+            const nomeOk = user.nome.length > 0 && user.nome.length < 3
+            const usuarioOk = !validarEmail && user.usuario.length > 0
+            const senhaOk = user.senha.length > 0 && user.senha.length < 8
+            const confirmarSenhaOk = confirmarSenha !== user.senha
+            const vazio = user.nome.length === 0 || user.usuario.length === 0 || user.senha.length === 0 || confirmarSenha.length === 0
+  
     return (
         <Grid container direction='row' justifyContent='center' alignItems='center'>
             <Grid item xs={6} className='imagem2'></Grid>

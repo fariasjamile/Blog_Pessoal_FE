@@ -7,6 +7,7 @@ import User from '../../models/User';
 import { buscaId } from '../../services/Service';
 import './Perfil.css'
 import { UserState } from '../../store/token/Reducer';
+import { toast } from 'react-toastify';
 
 function Perfil() {
 
@@ -32,7 +33,16 @@ function Perfil() {
 
     useEffect(() => {
         if (token === "") {
-            alert("Você precisa estar logado")
+            toast.error('Usuário não autenticado!', {
+                position: 'top-right',
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: false,
+                draggable: false,
+                theme: 'colored',
+                progress: undefined,
+              });
             history("/login")
         }
     }, [token])
@@ -66,15 +76,8 @@ function Perfil() {
                     <h3>{ user.usuario }</h3>
                     <hr />
                 </Box>
-
                 <p className='card-container-texto'>
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Numquam accusantium totam incidunt architecto maiores, perferendis eius. Tempora ullam magni dolore voluptatibus, quidem sunt tempore distinctio ut aliquam modi aliquid officiis.
-                    Assumenda voluptatibus, animi pariatur voluptatum magnam ullam aspernatur optio suscipit incidunt dolor modi quos aperiam. Quam possimus rerum iste nobis quas porro unde sequi, sed nisi labore est voluptas corrupti.
-                    Deleniti officiis sint perspiciatis nisi iste, voluptate sunt asperiores dolor sapiente non corporis omnis voluptatem soluta. Nulla odio alias aperiam, magnam eaque assumenda tempora! Inventore odit iure unde placeat iste.
-                </p>
-
-                <p className='card-container-texto'>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias consectetur tempore enim hic ad, optio ratione repellendus et. Nemo facilis laborum eum facere ipsam ab ad iusto eligendi deleniti qui?
+                Olá! Meu nome é Jamile Farias, tenho 18 anos, e sou uma desenvolvedora Java Fullstack Junior. Desde muito novinha eu tive interesse por tecnologia e tudo que tinha ligação com ela, amava assistir conteúdos com supergênios da tecnologia. Mas minha trajetória com tecnologia começou mesmo em 2020, quando resolvi cursar o ensino médio integrado ao ensino profissional e me tornei Técnica Informática, onde pude aprender conceitos básicos sobre Software, redes, manutenção de computadores e hardware. Em conjunto com o curso, também tive a oportunidade de participar de 2 projetos de programação onde pude aprender gestão e trabalho em equipe e também tive um período de estágio em uma empresa de distribuição de Internet que me proporcionaram aprendizados sobre comunicação e proatividade. Atualmente estou aprofundando meus conhecimentos em programação através de um bootcamp na Generation Brasil, uma instituição de ensino focada em formação profissional em Tecnologia, no qual tenho sido desafiada diariamente com novos conteúdos técnicos e aprimorando minhas habilidades comportamentais que são indispensáveis para formação de um profissional qualificado. Vocês podem acompanhar melhor essa trajetória pelo meu github que está disponível logo acima, te espero lá!
                 </p>
             </Box>
         </Box>

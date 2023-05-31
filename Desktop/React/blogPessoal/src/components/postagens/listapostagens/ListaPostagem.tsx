@@ -1,27 +1,31 @@
 import { Button, Card, CardActions, CardContent, Typography } from '@material-ui/core';
 import { Box } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import Postagem from '../../../models/Postagem';
+
 import { busca } from '../../../services/Service';
+
 import { UserState } from '../../../store/token/Reducer';
 import './ListaPostagem.css';
 import { toast } from 'react-toastify';
+import { addToken } from '../../../store/token/Actions';
 
-function ListaPostagem() {
-  const [posts, setPosts] = useState<Postagem[]>([])
-  // const [token, setToken] = useLocalStorage('token');
+function Listapost() {
+  
+  let navigate = useNavigate();
+
+  const [posts, setPosts] = useState<any[]>([]);
+
+  const dispatch = useDispatch()
 
   const token = useSelector<UserState, UserState["tokens"]>(
     (state) => state.tokens
   )
 
-  let navigate = useNavigate();
-
   useEffect(() => {
-    if (token == "") {
-      toast.error('Usuário não autenticado! Faça o Login novamente', {
+    if (token === '') {
+      toast.error('Usuário não autenticado!', {
         position: 'top-right',
         autoClose: 2000,
         hideProgressBar: false,
@@ -31,31 +35,32 @@ function ListaPostagem() {
         theme: 'colored',
         progress: undefined,
       });
-      navigate("/login")
-
+      navigate('/login');
     }
-  }, [token])
+  }, [token]);
 
-  async function getPost() {
-    await busca('/postagens', setPosts, {
-      headers: {
-        'Authorization': token
+  async function getpost() {
+    try {
+      await busca('/postagens', setPosts, {
+        headers: { Authorization: token },
+      });
+    } catch (error: any) {
+      if (error.response?.status === 403) {
+        dispatch(addToken(''))
       }
-    })
+    }
   }
 
   useEffect(() => {
-
-    getPost()
-
-  }, [posts.length])
+    getpost();
+  }, [posts.length]);
 
   return (
     <>
-      {
-        posts.map(post => (
-          <Box m={2} >
-            <Card variant="outlined">
+      {posts.length === 0 ? (<div className="spinner"></div>) : (
+        posts.map((post) => (
+          <Box marginX={20} m={2} className="boxPost">
+            <Card >
               <CardContent>
                 <Typography color="textSecondary" gutterBottom>
                   Postagens
@@ -98,9 +103,9 @@ function ListaPostagem() {
             </Card>
           </Box>
         ))
-      }
+      )}
     </>
-  )
+  );
 }
 
-export default ListaPostagem;
+export default Listapost;

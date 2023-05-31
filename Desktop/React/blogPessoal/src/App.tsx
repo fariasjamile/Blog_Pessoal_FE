@@ -2,11 +2,9 @@ import { Provider } from 'react-redux';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import Footer from './components/estaticos/footer/Footer';
-
 import Home from './paginas/home/Home';
 import Login from './paginas/login/Login';
 import store from './store/Store';
-
 import 'react-toastify/dist/ReactToastify.css';
 import Navbar from './components/estaticos/navbar/NavBar';
 import CadastroUsuario from './paginas/cadastroUsuario/cadastroUsuario';
