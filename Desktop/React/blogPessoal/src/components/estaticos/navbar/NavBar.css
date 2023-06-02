@@ -1,0 +1,17 @@
+.text-decorator-none{
+    display: flex;
+    align-items:center;
+    font-style: italic;
+    font-weight: bold;
+}
+
+.cursor{
+  cursor: pointer;
+}
+
+
+.blog{
+  display: flex;
+  justify-content:right;
+
+}
