@@ -7,7 +7,7 @@ import Login from './paginas/login/Login';
 import store from './store/Store';
 import 'react-toastify/dist/ReactToastify.css';
 import Navbar from './components/estaticos/navbar/NavBar';
-import CadastroUsuario from './paginas/cadastroUsuario/cadastroUsuario';
+import CadastroUsuario from './paginas/cadastroUsuario/CadastroUsuario';
 import ListaTema from './components/temas/listatema/ListaTema';
 import CadastroPost from './components/postagens/CadastroPost/CadastroPost';
 import ListaPostagem from './components/postagens/listapostagens/ListaPostagem';
