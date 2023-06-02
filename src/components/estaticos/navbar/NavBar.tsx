@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToken } from '../../../store/token/Actions';
 import { UserState } from '../../../store/token/Reducer';
-import './Navbar.css';
+import './NavBar.cs
 import { toast } from 'react-toastify';
 
 function Navbar() {
