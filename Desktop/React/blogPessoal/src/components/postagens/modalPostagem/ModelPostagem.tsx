@@ -3,9 +3,10 @@ import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import {Button } from "@material-ui/core"
 import {Box} from '@mui/material';
-import './ModelPostagem.css';
 import CloseIcon from '@material-ui/icons/Close';
+import './ModelPostagem.css'
 import CadastroPost from '../CadastroPost/CadastroPost';
+
 
 
 function getModalStyle() {
