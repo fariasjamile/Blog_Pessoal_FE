@@ -14,7 +14,7 @@ import ListaPostagem from './components/postagens/listapostagens/ListaPostagem';
 import CadastroTema from './components/temas/cadastroTema/CadastroTema';
 import DeletarPostagem from './components/postagens/deletarPostagens/deletarPostangens';
 import DeletarTema from './components/temas/DeletarTema/DeletarTema';
-import Perfil from './paginas/perfil/perfil';
+import Perfil from './paginas/perfil/Perfil';
 
 function App() {
 
