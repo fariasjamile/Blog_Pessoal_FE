@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import User from '../../models/User'
 import { cadastroUsuario } from '../../services/Service'
-import './CadastroUsuario.css'
+import './cadastroUsuario.css'
 
 function CadastroUsuario() {
     let navigate = useNavigate();
