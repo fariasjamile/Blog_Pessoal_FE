@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { Box } from '@mui/material';
 import { useNavigate } from 'react-router';
 import { useSelector } from 'react-redux';
-
 import User from '../../models/User';
 import { buscaId } from '../../services/Service';
 import './Perfil.css'

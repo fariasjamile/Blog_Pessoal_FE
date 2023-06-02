@@ -1,17 +1,17 @@
-import React, {useState, useEffect, ChangeEvent} from 'react'
-import './CadastroUsuario.css'
 import { Button, Grid, TextField, Typography } from '@material-ui/core'
 import Box from '@mui/material/Box'
+import { ChangeEvent, useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 import User from '../../models/User'
 import { cadastroUsuario } from '../../services/Service'
-import { toast } from 'react-toastify'
+import './CadastroUsuario.css'
 
 function CadastroUsuario() {
     let navigate = useNavigate();
-    // serve para o confirmar se as senhas digitadas são iguais 
+
     const [confirmarSenha, setConfirmarSenha] = useState<String>("")
-    //contem as informações que estou enviando para cadastro enquanto n tem nada prenchido ele vida com esses valores padrões colocados em baixo
+
     const [user, setUser] = useState<User>(
         {
             id: 0,
@@ -20,7 +20,7 @@ function CadastroUsuario() {
             senha: '',
             foto: ''
         })
-        //serve para armazenar os valores de retorno da api quando eu envio os dados de cadastro e efetivo ela devolve um json com os dados cadastrados e eles eu gravo isso de userResult
+
     const [userResult, setUserResult] = useState<User>(
         {
             id: 0,
@@ -30,19 +30,16 @@ function CadastroUsuario() {
             foto: ''
         })
 
-        //ele vai olhar para userResult se for o id for diferente de 0 ele te manda para tela de login 
     useEffect(() => {
         if (userResult.id != 0) {
             navigate('/login')
         }
     }, [userResult])
 
-    // essa função ela ativa junto do State confirmar senha, ela pega o valor digitado lá  e compara
     function confirmarSenhaHandle(e: ChangeEvent<HTMLInputElement>) {
         setConfirmarSenha(e.target.value)
     }
 
-        //vai populando o objeto conforme os dados que eu vou preenchendo
     function updatedModel(e: ChangeEvent<HTMLInputElement>) {
 
         setUser({
@@ -51,9 +48,10 @@ function CadastroUsuario() {
         })
 
     }
-    //aqui estou fazendo o cadastro estou enviado um create para api
+
     async function onSubmit(e: ChangeEvent<HTMLFormElement>) {
-        e.preventDefault() // Não atualiza a pagina que é comportamento padrão do botão 
+        e.preventDefault() 
+
         if (confirmarSenha == user.senha) {
 
             try {
@@ -95,15 +93,24 @@ function CadastroUsuario() {
         }
     }
 
-            const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-            const validarEmail = emailRegex.test(user.usuario);
+    const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    const validarEmail = emailRegex.test(user.usuario);
 
-            const nomeOk = user.nome.length > 0 && user.nome.length < 3
-            const usuarioOk = !validarEmail && user.usuario.length > 0
-            const senhaOk = user.senha.length > 0 && user.senha.length < 8
-            const confirmarSenhaOk = confirmarSenha !== user.senha
-            const vazio = user.nome.length === 0 || user.usuario.length === 0 || user.senha.length === 0 || confirmarSenha.length === 0
-  
+    const checaNome = user.nome.length > 0 && user.nome.length < 3
+    const checaUsuario = !validarEmail && user.usuario.length > 0
+    const checaSenha = user.senha.length > 0 && user.senha.length < 8
+    const checaConfirmarSenha = confirmarSenha !== user.senha
+    const checaVazio = user.nome.length === 0 || user.usuario.length === 0 || 
+                user.senha.length === 0 || confirmarSenha.length === 0
+
+    // useEffect(() => {
+    //     console.log("nomeOK: " + nomeOk)
+    //     console.log("usuarioOK: " + usuarioOk)
+    //     console.log("senhaOK: " + senhaOk)
+    //     console.log("confirmarSenhaOK: " + confirmarSenhaOk)
+    //     console.log("vazio: " + vazio)
+    // })
+
     return (
         <Grid container direction='row' justifyContent='center' alignItems='center'>
             <Grid item xs={6} className='imagem2'></Grid>
@@ -111,26 +118,77 @@ function CadastroUsuario() {
                 <Box paddingX={10}>
                     <form onSubmit={onSubmit}>
                         <Typography variant='h3' gutterBottom color='textPrimary' component='h3' align='center' className='textos2'>Cadastrar</Typography>
-                        <TextField value={user.nome} onChange={(e: ChangeEvent<HTMLInputElement>) => updatedModel(e)} id='nome' label='nome' variant='outlined' name='nome' margin='normal' fullWidth />
-                        <TextField value={user.usuario} onChange={(e: ChangeEvent<HTMLInputElement>) => updatedModel(e)} id='usuario' label='usuario' variant='outlined' name='usuario' margin='normal'fullWidth />
-                        <TextField value={user.senha} onChange={(e: ChangeEvent<HTMLInputElement>) => updatedModel(e)} id='senha' label='senha' variant='outlined' name='senha' margin='normal' type='password' fullWidth />
-                        <TextField value={confirmarSenha} onChange={(e: ChangeEvent<HTMLInputElement>) => confirmarSenhaHandle(e)} id='confirmarSenha' label='confirmarSenha' variant='outlined' name='confirmarSenha' margin='normal' type='password' fullWidth />
+                        <TextField
+                            error={checaNome}
+                            value={user.nome}
+                            onChange={(e: ChangeEvent<HTMLInputElement>) => updatedModel(e)}
+                            id='nome'
+                            label='nome'
+                            variant='outlined'
+                            name='nome'
+                            margin='normal'
+                            fullWidth
+                            helperText={checaNome ? 'Digite um nome válido!' : ''} />
+                        <TextField
+                            error={checaUsuario}
+                            value={user.usuario}
+                            onChange={(e: ChangeEvent<HTMLInputElement>) => updatedModel(e)}
+                            id='usuario'
+                            label='usuario'
+                            variant='outlined'
+                            name='usuario'
+                            margin='normal'
+                            fullWidth
+                            helperText={checaUsuario ? 'Digite um e-mail válido!' : ''} />
+                        <TextField
+                            value={user.foto}
+                            onChange={(e: ChangeEvent<HTMLInputElement>) => updatedModel(e)}
+                            id='foto'
+                            label='foto'
+                            variant='outlined'
+                            name='foto'
+                            margin='normal'
+                            type='normal'
+                            fullWidth />
+                        <TextField
+                            error={checaSenha}
+                            value={user.senha}
+                            onChange={(e: ChangeEvent<HTMLInputElement>) => updatedModel(e)}
+                            id='senha'
+                            label='senha'
+                            variant='outlined'
+                            name='senha'
+                            margin='normal'
+                            type='password'
+                            fullWidth
+                            helperText={checaSenha ? "A senha precisa ter no mínimo 8 caracteres" : ""} />
+                        <TextField
+                            error={checaConfirmarSenha}
+                            value={confirmarSenha}
+                            onChange={(e: ChangeEvent<HTMLInputElement>) => confirmarSenhaHandle(e)}
+                            id='confirmarSenha'
+                            label='confirmarSenha'
+                            variant='outlined'
+                            name='confirmarSenha'
+                            margin='normal'
+                            type='password'
+                            fullWidth
+                            helperText={checaConfirmarSenha ? 'As senhas não conferem!' : ''} />
                         <Box marginTop={2} textAlign='center'>
                             <Link to='/login' className='text-decorator-none'>
                                 <Button variant='contained' color='secondary' className='btnCancelar'>
                                     Cancelar
                                 </Button>
                             </Link>
-                            <Button type='submit' variant='contained' color='primary'>
-                                    Cadastrar
+                            <Button type='submit' variant='contained' color='primary'
+                                disabled={  checaNome || checaUsuario || checaSenha || 
+                                            checaConfirmarSenha || checaVazio ? true : false}>
+                                Cadastrar
                             </Button>
                         </Box>
                     </form>
                 </Box>
             </Grid>
-
-
-
         </Grid>
     )
 }

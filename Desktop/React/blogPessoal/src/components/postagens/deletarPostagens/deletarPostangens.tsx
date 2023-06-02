@@ -8,7 +8,7 @@ import Postagem from '../../../models/Postagem';
 import { buscaId, deleteId } from '../../../services/Service';
 import { addToken } from "../../../store/token/Actions";
 import { UserState } from '../../../store/token/Reducer';
-import './DeletarPostagem.css';
+import "./deletarPostagens.css"
 
 function DeletarPostagem() {
 
